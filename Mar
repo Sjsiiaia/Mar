@@ -1,0 +1,210 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+getgenv().SecureMode = true
+
+local Window = Rayfield:CreateWindow({
+   Name = "ðŸŽ¯TITLE OF UR SCRIPTS HUB",
+   LoadingTitle = "ðŸŽ¯LOADING TITLE",
+   LoadingSubtitle = "by TITLE",
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil,
+      FileName = "Big Hub"
+   },
+   Discord = {
+      Enabled = false,
+      Invite = "noinvitelink",
+      RememberJoins = true
+   },
+   KeySystem = false,
+   KeySettings = {
+      Title = "AASTRAK KEY SYSTEM",
+      Subtitle = "Key System",
+      Note = "TO GET THE KEY U MUST JOIN MY DISCORD SERVER",
+      FileName = "Key",
+      SaveKey = false,
+      GrabKeyFromSite = false,
+      Key = {"E"}
+   }
+})
+
+local Tab = Window:CreateTab("DUPE TAB", 4483362458) -- Title, Image
+local Section = Tab:CreateSection("ðŸ“˜DUPE")
+
+local fromPet = "Cat"
+local toPet = "Titanic"
+
+
+
+
+local Pets = require(game:GetService("ReplicatedStorage").Library.Directory.Pets)
+function FromLetto()
+  for i,v in pairs(Pets[fromPet]) do
+    Pets[fromPet][i] = nil
+  end
+end
+function ToPetto()
+  for i,v in pairs(Pets[toPet]) do
+    Pets[fromPet][i] = v
+  end
+ end
+
+
+
+local Input = Tab:CreateInput({
+   Name = "ðŸ¶FROM PET",
+   PlaceholderText = "Cat",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(Text)
+        fromPet = Text 
+   end,
+})
+
+
+local Input = Tab:CreateInput({
+   Name = "ðŸ¶TO PET",
+   PlaceholderText = "Titanic",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(Text)
+         toPet = Text
+   end,
+})
+
+
+
+
+-- Button to start the duping process
+local Button = Tab:CreateButton({
+   Name = "ðŸ¶START DUPINGG.....",
+   Callback = function()
+       ToPetto()
+       ToPetto()
+   end,
+})
+
+
+local Section = Tab:CreateSection("ðŸ’ŽGEM DUPEðŸ’Ž")
+
+
+
+
+
+-- Define DupedGems function outside the input callback
+local desiredAmount = nil -- Initialize this variable to store input
+
+local function DupedGems()
+   local library = require(game.ReplicatedStorage.Library.Client.CurrencyCmds)
+   local originalGetFunction = library.Get
+   
+   local poop = originalGetFunction("Diamonds")
+   local increment = desiredAmount / 15 
+   local delayTime = 0.1
+
+   if desiredAmount > 0 and desiredAmount < 30000000001 then
+      library.Get = function(currencyId)
+         if currencyId == "Diamonds" then
+            return poop
+         else
+            return originalGetFunction(currencyId)
+         end
+      end
+
+      while poop < desiredAmount do
+         poop = poop + increment
+         print(library.Get("Diamonds"))
+         wait(delayTime)
+      end
+   else
+      local message = require(game.ReplicatedStorage.Library.Client.Message)
+      message.Error("Hey you need to enter a number between 0 and 25b!")
+   end
+end
+
+-- Input field to get the desired gem amount
+local Input = Tab:CreateInput({
+   Name = "ðŸ’ŽAMOUNT OF GEMS DO U WANT TO DUPEðŸ’Ž",
+   PlaceholderText = "0",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(Text)
+      desiredAmount = tonumber(Text) -- Store the input in the desiredAmount variable
+   end,
+})
+
+-- Button to start the duping process
+local Button = Tab:CreateButton({
+   Name = "ðŸ’ŽSTART DUPINGG.....ðŸ’Ž",
+   Callback = function()
+      if desiredAmount > 0 then
+         DupedGems() -- Call DupedGems function when the button is clicked
+      else
+         local message = require(game.ReplicatedStorage.Library.Client.Message)
+         message.Error("Please enter a valid amount before starting.")
+      end
+   end,
+})
+
+
+
+
+
+
+
+
+local Section = Tab:CreateSection("ðŸª™COIN DUPEðŸª™")
+
+
+
+
+
+-- Define DupedGems function outside the input callback
+local desiredAmount = nil -- Initialize this variable to store input
+
+local function DupedCoins()
+   local library = require(game.ReplicatedStorage.Library.Client.CurrencyCmds)
+   local originalGetFunction = library.Get
+   
+   local poop = originalGetFunction("Coins")
+   local increment = desiredAmount / 15 
+   local delayTime = 0.1
+
+   if desiredAmount > 0 and desiredAmount < 30000000001 then
+      library.Get = function(currencyId)
+         if currencyId == "Coins" then
+            return poop
+         else
+            return originalGetFunction(currencyId)
+         end
+      end
+
+      while poop < desiredAmount do
+         poop = poop + increment
+         print(library.Get("Coins"))
+         wait(delayTime)
+      end
+   else
+      local message = require(game.ReplicatedStorage.Library.Client.Message)
+      message.Error("Hey you need to enter a number between 0 and 25b!")
+   end
+end
+
+-- Input field to get the desired gem amount
+local Input = Tab:CreateInput({
+   Name = "ðŸª™AMOUNT OF COINS DO U WANT TO DUPEðŸª™",
+   PlaceholderText = "0",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(Text)
+      desiredAmount = tonumber(Text) -- Store the input in the desiredAmount variable
+   end,
+})
+
+-- Button to start the duping process
+local Button = Tab:CreateButton({
+   Name = "ðŸª™START DUPINGG.....ðŸª™",
+   Callback = function()
+      if desiredAmount > 0 then
+         DupedCoins() -- Call DupedGems function when the button is clicked
+      else
+         local message = require(game.ReplicatedStorage.Library.Client.Message)
+         message.Error("Please enter a valid amount before starting.")
+      end
+   end,
+})
